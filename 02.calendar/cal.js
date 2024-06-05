@@ -32,3 +32,4 @@ for (
     console.log("");
   }
 }
+console.log("");
