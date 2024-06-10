@@ -22,13 +22,12 @@ for (let i = 0; i < getDay(FirstDate); i++) {
   process.stdout.write("   ");
 }
 
-for (let i = FirstDate.getDate(); i <= LastDate.getDate(); i++) {
-  const day = new Date(argv.y, argv.m - 1, i)
+for (let day = FirstDate; day <= LastDate; day.setDate(day.getDate() + 1)) {
   if (getDay(day) !== 6 && LastDate !== day) {
-    process.stdout.write(`${i} `.padStart(3, " "));
+    process.stdout.write(`${day.getDate()} `.padStart(3, " "));
   }
   if (getDay(day) === 6) {
-    process.stdout.write(`${i}`.padStart(2, " "));
+    process.stdout.write(`${day.getDate()}`.padStart(2, " "));
     console.log();
   }
 }
