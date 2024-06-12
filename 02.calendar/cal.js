@@ -21,7 +21,7 @@ for (let i = 0; i < firstDate.getDay(); i++) {
   process.stdout.write("   ");
 }
 for (let date = firstDate; date <= lastDate; date.setDate(date.getDate() + 1)) {
-  if (date.getDay() !== 6 && lastDate !== date) {
+  if (date.getDay() !== 6 || lastDate !== date) {
     process.stdout.write(`${date.getDate()} `.padStart(3, " "));
   }
   if (date.getDay() === 6) {
