@@ -15,13 +15,13 @@ const argv = minimist(process.argv.slice(2), {
 console.log(`      ${argv.m}月 ${argv.y}`);
 console.log("日 月 火 水 木 金 土");
 
-const FirstDate = new Date(argv.y, argv.m - 1, 1);
-const LastDate = new Date(argv.y, argv.m, 0);
-for (let i = 0; i < FirstDate.getDay(); i++) {
+const firstDate = new Date(argv.y, argv.m - 1, 1);
+const lastDate = new Date(argv.y, argv.m, 0);
+for (let i = 0; i < firstDate.getDay(); i++) {
   process.stdout.write("   ");
 }
-for (let day = FirstDate; day <= LastDate; day.setDate(day.getDate() + 1)) {
-  if (day.getDay() !== 6 && LastDate !== day) {
+for (let day = firstDate; day <= lastDate; day.setDate(day.getDate() + 1)) {
+  if (day.getDay() !== 6 && lastDate !== day) {
     process.stdout.write(`${day.getDate()} `.padStart(3, " "));
   }
   if (day.getDay() === 6) {
