@@ -20,12 +20,12 @@ const lastDate = new Date(argv.y, argv.m, 0);
 for (let i = 0; i < firstDate.getDay(); i++) {
   process.stdout.write("   ");
 }
-for (let day = firstDate; day <= lastDate; day.setDate(day.getDate() + 1)) {
-  if (day.getDay() !== 6 && lastDate !== day) {
-    process.stdout.write(`${day.getDate()} `.padStart(3, " "));
+for (let date = firstDate; date <= lastDate; date.setDate(date.getDate() + 1)) {
+  if (date.getDay() !== 6 && lastDate !== date) {
+    process.stdout.write(`${date.getDate()} `.padStart(3, " "));
   }
-  if (day.getDay() === 6) {
-    process.stdout.write(`${day.getDate()}`.padStart(2, " "));
+  if (date.getDay() === 6) {
+    process.stdout.write(`${date.getDate()}`.padStart(2, " "));
     console.log();
   }
 }
