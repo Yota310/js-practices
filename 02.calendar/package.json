@@ -5,7 +5,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
-    "@types/date-fns": "^2.6.0",
     "eslint": "^9.3.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.3.0",
@@ -13,7 +12,6 @@
   },
   "type": "module",
   "dependencies": {
-    "minimist": "^1.2.8",
-    "date-fns": "^3.6.0"
+    "minimist": "^1.2.8"
   }
 }
