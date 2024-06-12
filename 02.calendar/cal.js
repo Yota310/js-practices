@@ -17,14 +17,14 @@ console.log("日 月 火 水 木 金 土");
 
 const FirstDate = new Date(argv.y, argv.m - 1, 1);
 const LastDate = new Date(argv.y, argv.m, 0);
-for (let i = 0; i < getDay(FirstDate); i++) {
+for (let i = 0; i < FirstDate.getDay(); i++) {
   process.stdout.write("   ");
 }
 for (let day = FirstDate; day <= LastDate; day.setDate(day.getDate() + 1)) {
-  if (getDay(day) !== 6 && LastDate !== day) {
+  if (day.getDay() !== 6 && LastDate !== day) {
     process.stdout.write(`${day.getDate()} `.padStart(3, " "));
   }
-  if (getDay(day) === 6) {
+  if (day.getDay() === 6) {
     process.stdout.write(`${day.getDate()}`.padStart(2, " "));
     console.log();
   }
