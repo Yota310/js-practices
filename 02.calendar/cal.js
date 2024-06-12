@@ -20,7 +20,7 @@ const lastDate = new Date(argv.y, argv.m, 0);
 for (let i = 0; i < firstDate.getDay(); i++) {
   process.stdout.write("   ");
 }
-for (let date = firstDate; date <= lastDate; date.setDate(date.getDate() + 1)) {
+for (let date = new Date(firstDate); date <= lastDate; date.setDate(date.getDate() + 1)) {
   if (date.getDay() !== 6 || lastDate !== date) {
     process.stdout.write(`${date.getDate()} `.padStart(3, " "));
   }
