@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
 import minimist from "minimist";
-import getDay from "date-fns/getDay";
 
 const today = new Date();
-let year = today.getFullYear();
-let month = today.getMonth() + 1;
+const year = today.getFullYear();
+const month = today.getMonth() + 1;
 const argv = minimist(process.argv.slice(2), {
   default: {
     y: year,
