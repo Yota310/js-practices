@@ -21,12 +21,11 @@ for (let i = 0; i < firstDate.getDay(); i++) {
   process.stdout.write("   ");
 }
 for (let date = new Date(firstDate); date <= lastDate; date.setDate(date.getDate() + 1)) {
-  if (date.getDay() !== 6 || lastDate !== date) {
-    process.stdout.write(`${date.getDate()} `.padStart(3, " "));
-  }
+  process.stdout.write(`${date.getDate()}`.padStart(2, " "));
   if (date.getDay() === 6) {
-    process.stdout.write(`${date.getDate()}`.padStart(2, " "));
     console.log();
+  } else if (date.getDate() !== lastDate.getDate()) {
+    process.stdout.write(" ");
   }
 }
 console.log();
