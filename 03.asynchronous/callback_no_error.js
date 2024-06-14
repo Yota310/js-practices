@@ -20,7 +20,7 @@ const db = new sqlite3.Database(":memory:", () => {
           (err, row) => {
             console.log(row);
             // テーブルの削除
-            db.run(`DROP TABLE books`, function () {
+            db.run(`DROP TABLE books`, () => {
               console.log(`DROP TABLE books`);
               // データベースの切断
               db.close(() => {
