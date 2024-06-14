@@ -2,7 +2,7 @@ import sqlite3 from "sqlite3";
 
 console.log("エラーなし");
 // データベースに接続
-let db = new sqlite3.Database(":memory:", (err) => {
+const db = new sqlite3.Database(":memory:", (err) => {
   if (err) {
     return console.error(err.message);
   }
