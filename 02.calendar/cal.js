@@ -20,9 +20,16 @@ const lastDate = new Date(argv.y, argv.m, 0);
 for (let i = 0; i < firstDate.getDay(); i++) {
   process.stdout.write("   ");
 }
-for (let date = new Date(firstDate); date <= lastDate; date.setDate(date.getDate() + 1)) {
+for (
+  let date = new Date(firstDate);
+  date <= lastDate;
+  date.setDate(date.getDate() + 1)
+) {
   process.stdout.write(String(date.getDate()).padStart(2, " "));
-  if (date.getDay() === 6) {
+  if (
+    date.getDay() === 6 ||
+    (date.getDate() === lastDate.getDate() && date.getDay() !== 0)
+  ) {
     console.log();
   } else if (date.getDate() !== lastDate.getDate()) {
     process.stdout.write(" ");
