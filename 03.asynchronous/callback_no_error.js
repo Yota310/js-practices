@@ -18,9 +18,6 @@ const db = new sqlite3.Database(":memory:", () => {
           `SELECT * FROM books WHERE id = ?`,
           [this.lastID],
           (err, row) => {
-            if (err) {
-              return console.error(err.message);
-            }
             console.log(row);
             // テーブルの削除
             db.run(`DROP TABLE books`, function () {
