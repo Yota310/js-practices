@@ -2,7 +2,7 @@ import sqlite3 from "sqlite3";
 
 export function openDatabase() {
   return new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(":test2:", (err) => {
+    const db = new sqlite3.Database(":memory:", (err) => {
       if (err) {
         reject(err);
       } else {
