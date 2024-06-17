@@ -33,20 +33,20 @@ try {
 } catch (err) {
   console.error(`Error inserting books: ${err.message}`);
 }
-  try {
-    response = await getQuery(db, `SELECT * FROM books WHERE id = ?`, [
-      response.result.lastID,
-    ]);
-    console.log(response.row);
-  } catch (err) {
-    console.error(`Error selecting books: ${err.message}`);
-  }
-  try {
-    await runQuery(response.db, `DROP TABLE books`);
-    console.log(`Dropped TABLE books`);
-  } catch (err) {
-    console.error(`Error deleting books: ${err.message}`);
-  }
+try {
+  response = await getQuery(db, `SELECT * FROM books WHERE id = ?`, [
+    response.result.lastID,
+  ]);
+  console.log(response.row);
+} catch (err) {
+  console.error(`Error selecting books: ${err.message}`);
+}
+try {
+  await runQuery(response.db, `DROP TABLE books`);
+  console.log(`Dropped TABLE books`);
+} catch (err) {
+  console.error(`Error deleting books: ${err.message}`);
+}
 try {
   await closeDatabase(response.db);
   console.log("Closed the database connection.");
