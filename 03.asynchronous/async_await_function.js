@@ -1,12 +1,15 @@
 import sqlite3 from "sqlite3";
 
-export async function openDatabase() {
-  try {
-    const db = await new sqlite3.Database(":test3:");
-    return db;
-  } catch (err) {
-    console.error(`Error openning database: ${err.message}`);
-  }
+export function openDatabase() {
+  return new Promise((resolve, reject) => {
+    const db = new sqlite3.Database(":memory:", (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(db);
+      }
+    });
+  });
 }
 export function runQuery(db, query, params = []) {
   return new Promise((resolve, reject) => {
@@ -14,26 +17,37 @@ export function runQuery(db, query, params = []) {
       if (err) {
         reject(err);
       } else {
-        resolve(this);
+        resolve({
+          db,
+          result: this,
+        });
       }
     });
   });
 }
+
 export function getQuery(db, query, params = []) {
   return new Promise((resolve, reject) => {
     db.get(query, params, (err, row) => {
       if (err) {
         reject(err);
       } else {
-        resolve(row);
+        resolve({
+          db,
+          row,
+        });
       }
     });
   });
 }
-export async function closeDatabase(db) {
-  try {
-    await db.close();
-  } catch (err) {
-    console.error(`Error closeing database: ${err.message}`);
-  }
+export function closeDatabase(db) {
+  return new Promise((resolve, reject) => {
+    db.close((err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
 }
