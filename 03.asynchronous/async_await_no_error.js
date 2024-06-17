@@ -33,7 +33,6 @@ try {
 } catch (err) {
   console.error(`Error inserting books: ${err.message}`);
 }
-if (lastID !== null){
   try {
     response = await getQuery(db, `SELECT * FROM books WHERE id = ?`, [
       response.result.lastID,
@@ -48,7 +47,6 @@ if (lastID !== null){
   } catch (err) {
     console.error(`Error deleting books: ${err.message}`);
   }
-}
 try {
   await closeDatabase(response.db);
   console.log("Closed the database connection.");
