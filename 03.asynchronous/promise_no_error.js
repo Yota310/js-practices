@@ -7,59 +7,38 @@ import {
 
 openDatabase()
   .then((db) => {
-    console.log("Connected to the in-memory SQlite database.");
     return runQuery(
       db,
-      `CREATE TABLE books (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          title TEXT UNIQUE NOT NULL
-      )`,
-    ).then(() => {
-      return db;
-    });
-  })
-  .catch((err) => {
-    console.error(err.message);
-  })
-  .then((db) => {
-    console.log("Created books table.");
-    return runQuery(db, `INSERT INTO books (title) VALUES (?)`, [
-      "桃太郎",
-    ]).then(function (result) {
-      console.log(`Inserted data id:${result.lastID}`);
-      return { db, lastID: result.lastID };
-    });
-  })
-  .catch((err) => {
-    console.error(err.message);
-  })
-  .then((context) => {
-    const { db, lastID } = context;
-    return getQuery(db, `SELECT * FROM books WHERE id = ?`, [lastID]).then(
-      (row) => {
-        console.log(row);
-        return { db, lastID };
-      },
+      `CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT UNIQUE NOT NULL)`,
     );
   })
-  .catch((err) => {
-    console.error(err.message);
+  .then((response) => {
+    console.log("Created books table.");
+    return response;
   })
-  .then((context) => {
-    const { db } = context;
-    return runQuery(db, `DROP TABLE books`).then(function () {
-      console.log(`DROP TABLE books`);
-      return db;
-    });
+  .then((response) => {
+    const db = response.db;
+    return runQuery(db, `INSERT INTO books (title) VALUES (?)`, ["桃太郎"]);
   })
-  .catch((err) => {
-    console.error(err.message);
+  .then((response) => {
+    const db = response.db;
+    const lastID = response.result.lastID;
+    console.log(response);
+    return getQuery(db, `SELECT * FROM books WHERE id = ?`, lastID);
   })
-  .then((db) => {
-    return closeDatabase(db).then(() => {
-      console.log("Closed the database connection.");
-    });
+  .then((response) => {
+    console.log("all books:", response.row);
+    return response;
   })
-  .catch((err) => {
-    console.error(err.message);
+  .then((response) => {
+    const db = response.db;
+    return runQuery(db, `DROP TABLE books`);
+  })
+  .then(function (response) {
+    const db = response.db;
+    console.log(`DROP TABLE books`);
+    return closeDatabase(db);
+  })
+  .then(() => {
+    console.log("Closed the database connection.");
   });
