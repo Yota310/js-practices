@@ -26,13 +26,10 @@ for (
   date.setDate(date.getDate() + 1)
 ) {
   process.stdout.write(String(date.getDate()).padStart(2, " "));
-  if (
-    date.getDay() === 6 ||
-    (date.getDate() === lastDate.getDate() && date.getDay() !== 0)
-  ) {
-    console.log();
-  } else if (date.getDate() !== lastDate.getDate()) {
+  if (date.getDay() !== 6 && date.getDate() !== lastDate.getDate()) {
     process.stdout.write(" ");
+  } else if (date.getDay() !== 0){
+    console.log();
   }
 }
 console.log();
