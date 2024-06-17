@@ -17,7 +17,10 @@ export function runQuery(db, query, params = []) {
       if (err) {
         reject(err);
       } else {
-        resolve(this);
+        resolve({
+          db,
+          result: this,
+        });
       }
     });
   });
@@ -29,7 +32,10 @@ export function getQuery(db, query, params = []) {
       if (err) {
         reject(err);
       } else {
-        resolve(row);
+        resolve({
+          db,
+          row,
+        });
       }
     });
   });
