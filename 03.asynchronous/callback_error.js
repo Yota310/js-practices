@@ -29,10 +29,10 @@ db.run(
         }
         // データの削除
         db.run(`DROP TABLE books`, function () {
-            console.log(`DROP TABLE books`);
+          console.log(`DROP TABLE books`);
           // データベースの切断
           db.close(() => {
-              console.log("Closed the database connection.");
+            console.log("Closed the database connection.");
           });
         });
       });
