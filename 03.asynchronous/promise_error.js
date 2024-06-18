@@ -7,6 +7,7 @@ import {
 
 openDatabase()
   .then((db) => {
+    console.log("Connected to the in-memory SQlite database.");
     return runQuery(
       db,
       `CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT UNIQUE NOT NULL)`,
@@ -23,11 +24,11 @@ openDatabase()
   .then((response) => {
     const db = response.db;
     const lastID = response.result.lastID;
-    console.log(response);
+    console.log(`Inserted data id:${lastID}`);
     return getQuery(db, `SELECT * FROM user WHERE id = ?`, lastID);
   })
   .then((response) => {
-    console.log("all books:", response.row);
+    console.log(response.row);
     return response;
   })
   .then((response) => {
