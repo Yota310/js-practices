@@ -4,6 +4,7 @@ import {
   getQuery,
   closeDatabase,
 } from "./async_await_function.js";
+
 let db;
 let response;
 try {
