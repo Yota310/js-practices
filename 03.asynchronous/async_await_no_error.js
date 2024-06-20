@@ -5,6 +5,7 @@ import {
   closeDatabase,
 } from "./async_await_function.js";
 
+console.log("エラーなし");
 let db;
 let response;
 try {

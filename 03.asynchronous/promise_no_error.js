@@ -5,6 +5,7 @@ import {
   closeDatabase,
 } from "./promise_function.js";
 
+console.log("エラーなし");
 openDatabase()
   .then((db) => {
     console.log("Connected to the in-memory SQlite database.");
