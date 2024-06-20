@@ -45,7 +45,7 @@ try {
 }
 try {
   await runQuery(response.db, `DROP TABLE books`);
-  console.log(`Dropped TABLE books`);
+  console.log(`DROP TABLE books`);
 } catch (err) {
   console.error(`Error deleting books: ${err.message}`);
 }
