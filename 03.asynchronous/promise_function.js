@@ -15,7 +15,10 @@ export function runQuery(db, query, params = []) {
   return new Promise((resolve, reject) => {
     db.run(query, params, function (err) {
       if (err) {
-        reject(err);
+        reject({
+          err,
+          db
+        });
       } else {
         resolve({
           db,
@@ -30,7 +33,10 @@ export function getQuery(db, query, params = []) {
   return new Promise((resolve, reject) => {
     db.get(query, params, (err, row) => {
       if (err) {
-        reject(err);
+        reject({
+          err,
+          db,
+        });
       } else {
         resolve({
           db,

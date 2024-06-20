@@ -16,14 +16,14 @@ db.run(
     // データの挿入
     db.run(`INSERT INTO books (title) VALUES (?)`, [], function (err) {
       if (err) {
-        console.error(err.message);
+        console.error(`Error inserting books: ${err.message}`);
       } else {
         console.log(`Inserted data id:${this.lastID}`);
       }
       // データの読み込み
       db.get(`SELECT * FROM user WHERE id = ?`, [this.lastID], (err, row) => {
         if (err) {
-          console.error(err.message);
+          console.error(`Error selecting books: ${err.message}`);
         } else {
           console.log(row);
         }

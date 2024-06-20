@@ -5,6 +5,7 @@ import {
   closeDatabase,
 } from "./async_await_function.js";
 
+console.log("エラーあり");
 let db;
 let response;
 try {
@@ -26,9 +27,7 @@ try {
 let lastID;
 try {
   const db = response.db;
-  response = await runQuery(db, `INSERT INTO books (name) VALUES (?)`, [
-    "桃太郎",
-  ]);
+  response = await runQuery(db, `INSERT INTO books (title) VALUES (?)`, []);
   lastID = response.result.lastID;
   console.log(`Inserted data id:${lastID}`);
 } catch (err) {
@@ -44,7 +43,7 @@ try {
 }
 try {
   await runQuery(response.db, `DROP TABLE books`);
-  console.log(`Dropped TABLE books`);
+  console.log(`DROP TABLE books`);
 } catch (err) {
   console.error(`Error deleting books: ${err.message}`);
 }
