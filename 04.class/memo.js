@@ -3,19 +3,19 @@ import minimist from "minimist";
 import readline from "readline";
 import dbMemo from "./dbMemo.js";
 
-class Memo {
-  async receveMemo() {
-    var lines = [];
+class MemoApp {
+  async receiveUserInput() {
+    var inputLines = [];
     return new Promise((resolve) => {
       const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
       });
       rl.on("line", function (line) {
-        lines.push(line);
+        inputLines.push(line);
       });
       rl.on("close", function () {
-        resolve(lines);
+        resolve(inputLines);
       });
     });
   }
@@ -25,11 +25,7 @@ class Memo {
     const argv = minimist(process.argv.slice(2));
     const dm = new dbMemo();
     if (argv.l === undefined && argv.r === undefined && argv.d === undefined) {
-      let memo = await this.receveMemo();
-      const title = memo[0];
-      const content = memo.slice(0).join("\n");
-      //ここでDB関係を呼び出して保存したい
-      dm.inputMemo(title, content);
+     this.createMemo(dm);
     } else {
       //ここでDB関係を呼び出してオプションに合わせて出力したい
       if (argv.l) {
@@ -43,10 +39,19 @@ class Memo {
       }
     }
   }
+
+  async createMemo(dm){
+    let userInput = await this.receiveUserInput();
+    const title = userInput[0];
+    const content = userInput.slice(0).join("\n");
+    //ここでDB関係を呼び出して保存したい
+    dm.inputMemo(title, content);
+  }
+
 }
 
 async function main() {
-  const memo = new Memo();
+  const memo = new MemoApp();
   memo.inputOption();
 }
 
