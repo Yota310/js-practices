@@ -1,6 +1,4 @@
 import sqlite3 from "sqlite3";
-import enquirer from "enquirer";
-const { Select } = enquirer;
 
 export class dbMemo {
   constructor() {
@@ -27,51 +25,20 @@ export class dbMemo {
   async listupMemo() {
     await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title FROM memo");
-    row.forEach((element) => console.log(element.title));
+    return row;
   }
   async readMemo() {
     await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title,content FROM memo");
-    const choices = row.map((memo) => ({
-      name: memo.title,
-      value: memo.content,
-    }));
-    const prompt = new Select({
-      name: "color",
-      message: "choose a note you want to see:",
-      choices: choices,
-      result() {
-        return this.focused.value;
-      },
-    });
-
-    prompt
-      .run()
-      .then((answer) => console.log(answer))
-      .catch(console.error);
+    return row;
   }
   async deleteMemo() {
     await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title,id FROM memo");
-    const choices = row.map((memo) => ({ name: memo.title, value: memo.id }));
-    const prompt = new Select({
-      name: "color",
-      message: "choose a note you want to delete:",
-      choices: choices,
-      result() {
-        return this.focused.value;
-      },
-    });
-
-    prompt
-      .run()
-      .then((answer) =>
-        this.db.run("DELETE FROM memo WHERE id == (?)", [answer]),
-      )
-      .catch(console.error);
+    return row;
   }
 
-  async createMemoDb(){
+  async createMemoDb() {
     await this.runQuery(
       this.db,
       `CREATE TABLE IF NOT EXISTS memo (
