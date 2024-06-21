@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 
-export class dbMemo {
+export class DbMemo {
   constructor() {
     this.db = new sqlite3.Database("./memo.db");
   }
@@ -80,4 +80,4 @@ export class dbMemo {
   }
 }
 
-export default dbMemo;
+export default DbMemo;
