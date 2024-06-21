@@ -4,7 +4,7 @@ const { Select } = enquirer;
 
 export class dbMemo {
   constructor() {
-    this.db = new sqlite3.Database("./test3.txt");
+    this.db = new sqlite3.Database("./memo.db");
   }
   async inputMemo(title, content) {
     try {
