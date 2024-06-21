@@ -8,14 +8,7 @@ export class dbMemo {
   }
   async inputMemo(title, content) {
     try {
-      await this.runQuery(
-        this.db,
-        `CREATE TABLE memo (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT UNIQUE NOT NULL,
-      content TEXT
-  )`,
-      );
+      await this.createMemoDb();
       await this.runQuery(
         this.db,
         `INSERT INTO memo (title, content) VALUES (?,?)`,
@@ -32,10 +25,12 @@ export class dbMemo {
     }
   }
   async listupMemo() {
+    await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title FROM memo");
     row.forEach((element) => console.log(element.title));
   }
   async readMemo() {
+    await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title,content FROM memo");
     const choices = row.map((memo) => ({
       name: memo.title,
@@ -56,6 +51,7 @@ export class dbMemo {
       .catch(console.error);
   }
   async deleteMemo() {
+    await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title,id FROM memo");
     const choices = row.map((memo) => ({ name: memo.title, value: memo.id }));
     const prompt = new Select({
@@ -74,6 +70,18 @@ export class dbMemo {
       )
       .catch(console.error);
   }
+
+  async createMemoDb(){
+    await this.runQuery(
+      this.db,
+      `CREATE TABLE IF NOT EXISTS memo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT UNIQUE NOT NULL,
+    content TEXT
+)`,
+    );
+  }
+
   runQuery(db, query, params = []) {
     return new Promise((resolve, reject) => {
       this.db.run(query, params, function (err) {
