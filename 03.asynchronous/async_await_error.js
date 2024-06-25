@@ -15,10 +15,7 @@ try {
   console.error(`Error opening database: ${err.message}`);
 }
 try {
-  response = await runQuery(
-    db,
-    "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
-  );
+  response = await runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)");
   console.log("Created books table.");
 } catch (err) {
   console.error(`Error creating table: ${err.message}`);
