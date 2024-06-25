@@ -11,7 +11,7 @@ db.run(
   () => {
     console.log("Created books table.");
     // データの挿入
-    db.run(`INSERT INTO books (title) VALUES (?)`, [], function (err) {
+    db.run(`INSERT INTO books (title) VALUES (?)`, function (err) {
       if (err) {
         console.error(`Error inserting books: ${err.message}`);
       } else {
