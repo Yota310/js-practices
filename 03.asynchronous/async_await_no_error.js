@@ -17,8 +17,7 @@ try {
 try {
   response = await runQuery(
     db,
-    `CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT UNIQUE NOT NULL
-      )`,
+    "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT UNIQUE NOT NULL)"
   );
   console.log("Created books table.");
 } catch (err) {
@@ -27,7 +26,7 @@ try {
 let lastID;
 try {
   const db = response.db;
-  response = await runQuery(db, `INSERT INTO books (title) VALUES (?)`, [
+  response = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
     "桃太郎",
   ]);
   lastID = response.result.lastID;
@@ -36,7 +35,7 @@ try {
   console.error(`Error inserting books: ${err.message}`);
 }
 try {
-  response = await getQuery(db, `SELECT * FROM books WHERE id = ?`, [
+  response = await getQuery(db, "SELECT * FROM books WHERE id = ?", [
     response.result.lastID,
   ]);
   console.log(response.row);
@@ -44,8 +43,8 @@ try {
   console.error(`Error selecting books: ${err.message}`);
 }
 try {
-  await runQuery(response.db, `DROP TABLE books`);
-  console.log(`DROP TABLE books`);
+  await runQuery(response.db, "DROP TABLE books");
+  console.log("DROP TABLE books");
 } catch (err) {
   console.error(`Error deleting books: ${err.message}`);
 }

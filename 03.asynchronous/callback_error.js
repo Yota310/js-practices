@@ -17,7 +17,7 @@ const db = new sqlite3.Database(":memory:", () => {
           if (err) {
             console.error(`Error selecting books: ${err.message}`);
           } else {
-            console.log(row);
+            console.log("Selected data:", row);
           }
           db.run(`DROP TABLE books`, () => {
             console.log(`DROP TABLE books`);
