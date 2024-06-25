@@ -25,7 +25,7 @@ db.run(
           console.log(row);
         }
         // データの削除
-        db.run(`DROP TABLE books`, function () {
+        db.run(`DROP TABLE books`, () => {
           console.log(`DROP TABLE books`);
           // データベースの切断
           db.close(() => {
