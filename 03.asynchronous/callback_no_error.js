@@ -4,7 +4,7 @@ console.log("エラーなし");
 const db = new sqlite3.Database(":memory:", () => {
   console.log("Connected to the in-memory SQlite database.");
   db.run(
-    "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT UNIQUE NOT NULL)",
+    "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
     () => {
       console.log("Created books table.");
       db.run("INSERT INTO books (title) VALUES (?)", ["桃太郎"], function () {
