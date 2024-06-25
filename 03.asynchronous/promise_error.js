@@ -48,10 +48,6 @@ openDatabase()
     const response = {result: {lastID: 0}, db}
     return response
   })
-  
-  .then((response) => {
-    return response;
-  })
   .then((response) => {
     const db = response.db;
     return runQuery(db, "DROP TABLE books");
