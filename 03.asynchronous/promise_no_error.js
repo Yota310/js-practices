@@ -33,7 +33,7 @@ openDatabase()
     const db = response.db;
     return runQuery(db, "DROP TABLE books");
   })
-  .then(function (response) {
+  .then((response) => {
     const db = response.db;
     console.log("DROP TABLE books");
     return closeDatabase(db);
