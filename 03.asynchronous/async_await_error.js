@@ -3,7 +3,7 @@ import {
   runQuery,
   getQuery,
   closeDatabase,
-} from "./async_await_function.js";
+} from "./promise_function.js";
 
 console.log("エラーあり");
 let db;
