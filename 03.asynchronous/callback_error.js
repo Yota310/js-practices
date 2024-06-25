@@ -2,7 +2,7 @@ import sqlite3 from "sqlite3";
 
 console.log("エラーあり");
 // データベースに接続
-let db = new sqlite3.Database(":memory:", () => {
+const db = new sqlite3.Database(":memory:", () => {
   console.log("Connected to the in-memory SQlite database.");
 });
 // テーブルの作成
