@@ -12,7 +12,7 @@ const db = new sqlite3.Database(":memory:", () => {
         db.get(
           "SELECT * FROM books WHERE id = ?",
           [this.lastID],
-          (err, row) => {
+          (_, row) => {
             console.log(row);
             db.run("DROP TABLE books", () => {
               console.log("Dropped table books");
