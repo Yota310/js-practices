@@ -21,19 +21,19 @@ openDatabase()
     const db = response.db;
     return runQuery(db, "INSERT INTO books (title) VALUES (?)", [])
   })
+  .then((response) => {
+    if (response.err === undefined) {
+    const lastID = response.result.lastID;
+    console.log(`Inserted data id:${lastID}`);
+    }
+    return response
+  })
   .catch((errResponse) => {
     const db = errResponse.db
     const err = errResponse.err
     console.error(`Error inserting books: ${err.message}`);
     
     const response = {result: {lastID: 0}, db, err}
-    return response
-  })
-  .then((response) => {
-    if (response.err === undefined) {
-    const lastID = response.result.lastID;
-    console.log(`Inserted data id:${lastID}`);
-    }
     return response
   })
   .then((response) => {
