@@ -15,7 +15,7 @@ const db = new sqlite3.Database(":memory:", () => {
           (err, row) => {
           console.log(row);
           db.run("DROP TABLE books", () => {
-            console.log("Droped table books");
+            console.log("Dropped table books");
             db.close(() => {
               console.log("Closed the database connection.");
             });
