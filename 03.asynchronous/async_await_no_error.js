@@ -20,16 +20,16 @@ let lastID;
 response = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
   "桃太郎",
 ]);
-lastID = response.result.lastID;
+lastID = response.lastID;
 console.log(`Inserted data id:${lastID}`);
 
-response = await getQuery(db, "SELECT * FROM books WHERE id = ?", [
-  response.result.lastID,
+const row = await getQuery(db, "SELECT * FROM books WHERE id = ?", [
+  response.lastID,
 ]);
-console.log(response.row);
+console.log(row);
 
-await runQuery(response.db, "DROP TABLE books");
+await runQuery(db, "DROP TABLE books");
 console.log("DROP TABLE books");
 
-await closeDatabase(response.db);
+await closeDatabase(db);
 console.log("Closed the database connection.");

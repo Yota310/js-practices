@@ -17,26 +17,25 @@ let response;
 
 let lastID;
 try {
-  const db = response.db;
   response = await runQuery(db, "INSERT INTO books (title) VALUES (?)", []);
-  lastID = response.result.lastID;
+  lastID = response.lastID;
   console.log(`Inserted data id:${lastID}`);
 } catch (err) {
   console.error(`Error inserting books: ${err.message}`);
   throw err;
 }
 try {
-  response = await getQuery(db, "SELECT * FROM user WHERE id = ?", [
-    response.result.lastID,
+  const row = await getQuery(db, "SELECT * FROM user WHERE id = ?", [
+    response.lastID,
   ]);
-  console.log(response.row);
+  console.log(row);
 } catch (err) {
   console.error(`Error selecting books: ${err.message}`);
   throw err;
 }
 
-  await runQuery(response.db, "DROP TABLE books");
+  await runQuery(db, "DROP TABLE books");
   console.log("DROP TABLE books");
 
-  await closeDatabase(response.db);
+  await closeDatabase(db);
   console.log("Closed the database connection.");
