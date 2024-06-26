@@ -10,7 +10,7 @@ let db;
 let response;
 
 db = await openDatabase();
-console.log("Connected to the in-memory SQlite database.");
+console.log("Connected to the in-memory SQLite database.");
 
 response = await runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT UNIQUE NOT NULL)");
 console.log("Created books table.");
@@ -26,10 +26,10 @@ console.log(`Inserted data id:${lastID}`);
 const row = await getQuery(db, "SELECT * FROM books WHERE id = ?", [
   response.lastID,
 ]);
-console.log(row);
+console.log("Selected data:", row);
 
 await runQuery(db, "DROP TABLE books");
-console.log("DROP TABLE books");
+console.log("Dropped table books");
 
 await closeDatabase(db);
 console.log("Closed the database connection.");

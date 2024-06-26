@@ -10,7 +10,7 @@ let db;
 openDatabase()
   .then((responseDb) => {
     db = responseDb;
-    console.log("Connected to the in-memory SQlite database.");
+    console.log("Connected to the in-memory SQLite database.");
     return runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)");
   })
   .then(() => {
@@ -23,11 +23,11 @@ openDatabase()
     return getQuery(db, "SELECT * FROM books WHERE id = ?", lastID);
   })
   .then((response) => {
-    console.log(response);
+    console.log("Selected data:", response);
     return runQuery(db, "DROP TABLE books");
   })
   .then(() => {
-    console.log("DROP TABLE books");
+    console.log("Dropped table books");
     return closeDatabase(db);
   })
   .then(() => {

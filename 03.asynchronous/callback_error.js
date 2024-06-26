@@ -2,7 +2,7 @@ import sqlite3 from "sqlite3";
 
 console.log("エラーあり");
 const db = new sqlite3.Database(":memory:", () => {
-  console.log("Connected to the in-memory SQlite database.");
+  console.log("Connected to the in-memory SQLite database.");
   db.run(
     `CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)`,
     () => {
@@ -20,7 +20,7 @@ const db = new sqlite3.Database(":memory:", () => {
             console.log("Selected data:", row);
           }
           db.run(`DROP TABLE books`, () => {
-            console.log(`DROP TABLE books`);
+            console.log(`Dropped table books`);
             db.close(() => {
               console.log("Closed the database connection.");
             });

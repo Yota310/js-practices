@@ -13,7 +13,7 @@ let lastID;
 openDatabase()
   .then((responseDb) => {
     db = responseDb;
-    console.log("Connected to the in-memory SQlite database.");
+    console.log("Connected to the in-memory SQLite database.");
     return runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)");
   })
   .then(() => {
@@ -35,6 +35,9 @@ openDatabase()
     lastID = response.lastID;
     return getQuery(db, "SELECT * FROM user WHERE id = ?", lastID)
   })
+  .then((response)=>{
+    console.log("Selected data:", response);
+  })
   .catch((errResponse) => {
     console.error(`Error selecting books: ${errResponse.message}`);
   })
@@ -42,7 +45,7 @@ openDatabase()
     return runQuery(db, "DROP TABLE books");
   })
   .then(() => {
-    console.log("DROP TABLE books");
+    console.log("Dropped table books");
     return closeDatabase(db);
   })
   .then(() => {
