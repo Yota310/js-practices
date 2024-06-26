@@ -21,7 +21,7 @@ openDatabase()
   })
   .then(() => {
     console.log("Created books table.");
-    return runQuery(db, "INSERT INTO books (title) VALUES (?)", []);
+    return runQuery(db, "INSERT INTO books (title) VALUES (?)");
   })
   .then((response) => {
     if (response.err === undefined) {

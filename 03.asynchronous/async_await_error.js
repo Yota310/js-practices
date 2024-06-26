@@ -20,7 +20,7 @@ console.log("Created books table.");
 
 let lastID;
 try {
-  response = await runQuery(db, "INSERT INTO books (title) VALUES (?)", []);
+  response = await runQuery(db, "INSERT INTO books (title) VALUES (?)");
   lastID = response.lastID;
   console.log(`Inserted data id:${lastID}`);
 } catch (err) {
