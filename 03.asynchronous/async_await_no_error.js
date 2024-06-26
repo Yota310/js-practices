@@ -12,7 +12,10 @@ let response;
 db = await openDatabase();
 console.log("Connected to the in-memory SQLite database.");
 
-response = await runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT UNIQUE NOT NULL)");
+response = await runQuery(
+  db,
+  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
+);
 console.log("Created books table.");
 
 let lastID;

@@ -20,7 +20,7 @@ export function runQuery(db, query, params = []) {
         resolve(this);
       }
     });
-  })
+  });
 }
 
 export function getQuery(db, query, params = []) {

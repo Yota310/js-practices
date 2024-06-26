@@ -14,18 +14,21 @@ openDatabase()
   .then((responseDb) => {
     db = responseDb;
     console.log("Connected to the in-memory SQLite database.");
-    return runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)");
+    return runQuery(
+      db,
+      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
+    );
   })
   .then(() => {
     console.log("Created books table.");
-    return runQuery(db, "INSERT INTO books (title) VALUES (?)", [])
+    return runQuery(db, "INSERT INTO books (title) VALUES (?)", []);
   })
   .then((response) => {
     if (response.err === undefined) {
-    lastID = response.lastID;
-    console.log(`Inserted data id:${lastID}`);
+      lastID = response.lastID;
+      console.log(`Inserted data id:${lastID}`);
     }
-    return response
+    return response;
   })
   .catch((errResponse) => {
     console.error(`Error inserting books: ${errResponse.message}`);
@@ -33,9 +36,9 @@ openDatabase()
   })
   .then((response) => {
     lastID = response.lastID;
-    return getQuery(db, "SELECT * FROM user WHERE id = ?", lastID)
+    return getQuery(db, "SELECT * FROM user WHERE id = ?", lastID);
   })
-  .then((response)=>{
+  .then((response) => {
     console.log("Selected data:", response);
   })
   .catch((errResponse) => {

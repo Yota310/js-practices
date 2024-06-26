@@ -11,7 +11,10 @@ openDatabase()
   .then((responseDb) => {
     db = responseDb;
     console.log("Connected to the in-memory SQLite database.");
-    return runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)");
+    return runQuery(
+      db,
+      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
+    );
   })
   .then(() => {
     console.log("Created books table.");

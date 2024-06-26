@@ -9,11 +9,14 @@ console.log("エラーあり");
 let db;
 let response;
 
-  db = await openDatabase();
-  console.log("Connected to the in-memory SQLite database.");
+db = await openDatabase();
+console.log("Connected to the in-memory SQLite database.");
 
-  response = await runQuery(db,"CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)");
-  console.log("Created books table.");
+response = await runQuery(
+  db,
+  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
+);
+console.log("Created books table.");
 
 let lastID;
 try {
@@ -34,8 +37,8 @@ try {
   throw err;
 }
 
-  await runQuery(db, "DROP TABLE books");
-  console.log("Dropped table books");
+await runQuery(db, "DROP TABLE books");
+console.log("Dropped table books");
 
-  await closeDatabase(db);
-  console.log("Closed the database connection.");
+await closeDatabase(db);
+console.log("Closed the database connection.");
