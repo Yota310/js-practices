@@ -23,6 +23,7 @@ try {
   console.log(`Inserted data id:${lastID}`);
 } catch (err) {
   console.error(`Error inserting books: ${err.message}`);
+  throw err;
 }
 try {
   response = await getQuery(db, "SELECT * FROM user WHERE id = ?", [
@@ -31,6 +32,7 @@ try {
   console.log(response.row);
 } catch (err) {
   console.error(`Error selecting books: ${err.message}`);
+  throw err;
 }
 
   await runQuery(response.db, "DROP TABLE books");
