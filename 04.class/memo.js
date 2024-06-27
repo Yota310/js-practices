@@ -49,13 +49,15 @@ class MemoApp {
           },
         });
 
-        prompt
-          .run()
-          .then((answer) => console.log(answer))
-          .catch(console.error);
+        const answer = await prompt.run();
+        try {
+          console.log(answer);
+        } catch {
+          console.error;
+        }
       }
       if (argv.d) {
-        const row = dm.deleteMemo();
+        const row = await dm.searchDeleteMemo();
         const choices = row.map((memo) => ({
           name: memo.title,
           value: memo.id,
@@ -69,12 +71,13 @@ class MemoApp {
           },
         });
 
-        prompt
-          .run()
-          .then((answer) =>
-            this.db.run("DELETE FROM memo WHERE id == (?)", [answer]),
-          )
-          .catch(console.error);
+        const answer = await prompt.run();
+        console.log(answer);
+        try {
+          dm.runQuery("DELETE FROM memo WHERE id == (?)", [answer]);
+        } catch (err) {
+          console.error(`Error delete memo: ${err.message}`);
+        }
       }
     }
   }
@@ -83,7 +86,6 @@ class MemoApp {
     let userInput = await this.receiveUserInput();
     const title = userInput[0];
     const content = userInput.slice(0).join("\n");
-    //ここでDB関係を呼び出して保存したい
     dm.inputMemo(title, content);
   }
 }
