@@ -25,7 +25,7 @@ export class DbMemo {
     const row = await this.getQuery(this.db, "SELECT title FROM memo");
     return row;
   }
-  async readMemo() {
+  async searchReadMemo() {
     await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title,content FROM memo");
     return row;

@@ -33,7 +33,7 @@ class MemoApp {
         row.forEach((element) => console.log(element.title));
       }
       if (argv.r) {
-        const row = await dm.readMemo();
+        const row = await dm.searchReadMemo();
         const choices = row.map((memo) => ({
           name: memo.title,
           value: memo.content,
