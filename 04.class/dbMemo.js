@@ -32,7 +32,7 @@ export class DbMemo {
     const row = await this.getQuery(this.db, "SELECT title,content FROM memo");
     return row;
   }
-  async deleteMemo() {
+  async searchDeleteMemo() {
     await this.createMemoDb();
     const row = await this.getQuery(this.db, "SELECT title,id FROM memo");
     return row;
