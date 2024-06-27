@@ -70,7 +70,6 @@ class MemoApp {
         });
 
         const answer = await prompt.run();
-        console.log(answer);
         try {
           dm.runQuery("DELETE FROM memo WHERE id == (?)", [answer]);
         } catch (err) {
