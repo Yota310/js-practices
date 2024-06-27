@@ -23,13 +23,11 @@ class MemoApp {
   }
 
   async inputOption() {
-    //ここまではargv.lで呼び出せる
     const argv = minimist(process.argv.slice(2));
     const dm = new dbMemo();
     if (argv.l === undefined && argv.r === undefined && argv.d === undefined) {
       this.createMemo(dm);
     } else {
-      //ここでDB関係を呼び出してオプションに合わせて出力したい
       if (argv.l) {
         const row = await dm.listupMemo();
         row.forEach((element) => console.log(element.title));
