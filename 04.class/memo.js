@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import minimist from "minimist";
 import readline from "readline";
-import dbMemo from "./dbMemo.js";
+import Memo from "./dbMemo.js";
 import enquirer from "enquirer";
 const { Select } = enquirer;
 
@@ -24,7 +24,7 @@ class MemoApp {
 
   async inputOption() {
     const argv = minimist(process.argv.slice(2));
-    const dm = new dbMemo();
+    const dm = new Memo();
     if (argv.l === undefined && argv.r === undefined && argv.d === undefined) {
       this.createMemo(dm);
     } else {
