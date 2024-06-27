@@ -8,14 +8,12 @@ export class DbMemo {
     try {
       await this.createMemoDb();
       await this.runQuery(
-        this.db,
         `INSERT INTO memo (title, content) VALUES (?,?)`,
         [title, content],
       );
       this.closeDatabase(this.db);
     } catch {
       await this.runQuery(
-        this.db,
         `INSERT INTO memo (title, content) VALUES (?,?)`,
         [title, content],
       );
@@ -40,7 +38,6 @@ export class DbMemo {
 
   async createMemoDb() {
     await this.runQuery(
-      this.db,
       `CREATE TABLE IF NOT EXISTS memo (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT UNIQUE NOT NULL,
@@ -49,7 +46,7 @@ export class DbMemo {
     );
   }
 
-  runQuery(db, query, params = []) {
+  runQuery(query, params = []) {
     return new Promise((resolve, reject) => {
       this.db.run(query, params, function (err) {
         if (err) {
