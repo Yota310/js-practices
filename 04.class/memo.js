@@ -1,96 +1,80 @@
-#!/usr/bin/env node
-import minimist from "minimist";
-import readline from "readline";
-import Memo from "./dbMemo.js";
-import enquirer from "enquirer";
-const { Select } = enquirer;
+import sqlite3 from "sqlite3";
 
-class MemoApp {
-  async receiveUserInput() {
-    var inputLines = [];
-    return new Promise((resolve) => {
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-      rl.on("line", function (line) {
-        inputLines.push(line);
-      });
-      rl.on("close", function () {
-        resolve(inputLines);
+export class Memo {
+  constructor() {
+    this.db = new sqlite3.Database("./memo.db");
+  }
+  async inputMemo(title, content) {
+    try {
+      await this.createMemoDb();
+      await this.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
+        title,
+        content,
+      ]);
+      this.closeDatabase(this.db);
+    } catch {
+      await this.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
+        title,
+        content,
+      ]);
+      this.closeDatabase(this.db);
+    }
+  }
+  async listupMemo() {
+    await this.createMemoDb();
+    const row = await this.getQuery(this.db, "SELECT title FROM memo");
+    return row;
+  }
+  async searchReadMemo() {
+    await this.createMemoDb();
+    const row = await this.getQuery(this.db, "SELECT title,content FROM memo");
+    return row;
+  }
+  async searchDeleteMemo() {
+    await this.createMemoDb();
+    const row = await this.getQuery(this.db, "SELECT title,id FROM memo");
+    return row;
+  }
+
+  async createMemoDb() {
+    await this.runQuery(
+      `CREATE TABLE IF NOT EXISTS memo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT UNIQUE NOT NULL,
+    content TEXT
+)`,
+    );
+  }
+
+  runQuery(query, params = []) {
+    return new Promise((resolve, reject) => {
+      this.db.run(query, params, function (err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(this);
+        }
       });
     });
   }
-
-  async inputOption() {
-    const argv = minimist(process.argv.slice(2));
-    const dm = new Memo();
-    if (argv.l === undefined && argv.r === undefined && argv.d === undefined) {
-      this.createMemo(dm);
-    } else {
-      if (argv.l) {
-        const row = await dm.listupMemo();
-        row.forEach((element) => console.log(element.title));
-      }
-      if (argv.r) {
-        const row = await dm.searchReadMemo();
-        const choices = row.map((memo) => ({
-          name: memo.title,
-          value: memo.content,
-        }));
-        const prompt = new Select({
-          name: "color",
-          message: "choose a note you want to see:",
-          choices: choices,
-          result() {
-            return this.focused.value;
-          },
-        });
-
-        const answer = await prompt.run();
-        try {
-          console.log(answer);
-        } catch {
-          console.error;
+  getQuery(db, query, params = []) {
+    return new Promise((resolve, reject) => {
+      db.all(query, params, (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
         }
-      }
-      if (argv.d) {
-        const row = await dm.searchDeleteMemo();
-        const choices = row.map((memo) => ({
-          name: memo.title,
-          value: memo.id,
-        }));
-        const prompt = new Select({
-          name: "color",
-          message: "choose a note you want to delete:",
-          choices: choices,
-          result() {
-            return this.focused.value;
-          },
-        });
-
-        const answer = await prompt.run();
-        console.log(answer);
-        try {
-          dm.runQuery("DELETE FROM memo WHERE id == (?)", [answer]);
-        } catch (err) {
-          console.error(`Error delete memo: ${err.message}`);
-        }
-      }
+      });
+    });
+  }
+  async closeDatabase(db) {
+    try {
+      await db.close();
+    } catch (err) {
+      console.error(`Error closeing database: ${err.message}`);
     }
   }
-
-  async createMemo(dm) {
-    let userInput = await this.receiveUserInput();
-    const title = userInput[0];
-    const content = userInput.slice(0).join("\n");
-    dm.inputMemo(title, content);
-  }
 }
 
-async function main() {
-  const memo = new MemoApp();
-  memo.inputOption();
-}
-
-main();
+export default Memo;
