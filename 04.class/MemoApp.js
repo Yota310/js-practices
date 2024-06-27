@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import minimist from "minimist";
 import readline from "readline";
-import Memo from "./Memo.js";
+import Memo from "./memo.js";
 import enquirer from "enquirer";
 const { Select } = enquirer;
 
