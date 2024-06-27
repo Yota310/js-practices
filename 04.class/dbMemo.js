@@ -7,16 +7,16 @@ export class Memo {
   async inputMemo(title, content) {
     try {
       await this.createMemoDb();
-      await this.runQuery(
-        `INSERT INTO memo (title, content) VALUES (?,?)`,
-        [title, content],
-      );
+      await this.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
+        title,
+        content,
+      ]);
       this.closeDatabase(this.db);
     } catch {
-      await this.runQuery(
-        `INSERT INTO memo (title, content) VALUES (?,?)`,
-        [title, content],
-      );
+      await this.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
+        title,
+        content,
+      ]);
       this.closeDatabase(this.db);
     }
   }
