@@ -24,16 +24,16 @@ class MemoApp {
 
   async inputOption() {
     const argv = minimist(process.argv.slice(2));
-    const dm = new Memo();
+    const memo = new Memo();
     if (argv.l === undefined && argv.r === undefined && argv.d === undefined) {
-      this.createMemo(dm);
+      this.createMemo(memo);
     } else {
       if (argv.l) {
-        const row = await dm.listupMemo();
+        const row = await memo.listup();
         row.forEach((element) => console.log(element.title));
       }
       if (argv.r) {
-        const row = await dm.searchReadMemo();
+        const row = await memo.searchRead();
         const choices = row.map((memo) => ({
           name: memo.title,
           value: memo.content,
@@ -55,7 +55,7 @@ class MemoApp {
         }
       }
       if (argv.d) {
-        const row = await dm.searchDeleteMemo();
+        const row = await memo.searchDelete();
         const choices = row.map((memo) => ({
           name: memo.title,
           value: memo.id,
@@ -71,7 +71,7 @@ class MemoApp {
 
         const answer = await prompt.run();
         try {
-          dm.runQuery("DELETE FROM memo WHERE id == (?)", [answer]);
+          memo.delete(answer);
         } catch (err) {
           console.error(`Error delete memo: ${err.message}`);
         }
@@ -79,11 +79,11 @@ class MemoApp {
     }
   }
 
-  async createMemo(dm) {
+  async createMemo(memo) {
     let userInput = await this.receiveUserInput();
     const title = userInput[0];
     const content = userInput.slice(0).join("\n");
-    dm.inputMemo(title, content);
+    memo.input(title, content);
   }
 }
 

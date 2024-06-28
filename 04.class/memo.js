@@ -4,7 +4,7 @@ export class Memo {
   constructor() {
     this.db = new DB();
   }
-  async inputMemo(title, content) {
+  async input(title, content) {
     try {
       await this.db.create();
       await this.db.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
@@ -20,17 +20,17 @@ export class Memo {
       this.db.close();
     }
   }
-  async listupMemo() {
+  async listup() {
     await this.db.create();
     const row = await this.db.getQuery("SELECT title FROM memo");
     return row;
   }
-  async searchReadMemo() {
+  async searchRead() {
     await this.db.create();
     const row = await this.db.getQuery("SELECT title,content FROM memo");
     return row;
   }
-  async searchDeleteMemo() {
+  async searchDelete() {
     await this.db.create();
     const row = await this.db.getQuery("SELECT title,id FROM memo");
     return row;
