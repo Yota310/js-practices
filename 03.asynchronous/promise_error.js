@@ -11,8 +11,8 @@ let db;
 let lastID;
 
 openDatabase()
-  .then((responseDb) => {
-    db = responseDb;
+  .then((result) => {
+    db = result;
     console.log("Connected to the in-memory SQLite database.");
     return runQuery(
       db,
@@ -23,19 +23,19 @@ openDatabase()
     console.log("Created books table.");
     return runQuery(db, "INSERT INTO books (title) VALUES (?)");
   })
-  .then((response) => {
-    if (response.err === undefined) {
-      lastID = response.lastID;
+  .then((result) => {
+    if (result.err === undefined) {
+      lastID = result.lastID;
       console.log(`Inserted data id:${lastID}`);
     }
-    return response;
+    return result;
   })
-  .catch((errResponse) => {
-    console.error(`Error inserting books: ${errResponse.message}`);
-    return errResponse;
+  .catch((err) => {
+    console.error(`Error inserting books: ${err.message}`);
+    return err;
   })
-  .then((response) => {
-    lastID = response.lastID;
+  .then((result) => {
+    lastID = result.lastID;
     return getQuery(db, "SELECT * FROM user WHERE id = ?", lastID);
   })
   .then((response) => {
