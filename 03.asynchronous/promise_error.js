@@ -8,7 +8,6 @@ import {
 console.log("エラーあり");
 
 let db;
-let lastID;
 
 openDatabase()
   .then((result) => {
@@ -25,8 +24,7 @@ openDatabase()
   })
   .then((result) => {
     if (result.err === undefined) {
-      lastID = result.lastID;
-      console.log(`Inserted data id:${lastID}`);
+      console.log(`Inserted data id:${result.lastID}`);
     }
     return result;
   })
@@ -35,8 +33,7 @@ openDatabase()
     return err;
   })
   .then((result) => {
-    lastID = result.lastID;
-    return getQuery(db, "SELECT * FROM user WHERE id = ?", lastID);
+    return getQuery(db, "SELECT * FROM user WHERE id = ?", result.lastID);
   })
   .then((response) => {
     console.log("Selected data:", response);

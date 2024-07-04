@@ -21,9 +21,8 @@ openDatabase()
     return runQuery(db, "INSERT INTO books (title) VALUES (?)", ["桃太郎"]);
   })
   .then((result) => {
-    const lastID = result.lastID;
-    console.log(`Inserted data id:${lastID}`);
-    return getQuery(db, "SELECT * FROM books WHERE id = ?", lastID);
+    console.log(`Inserted data id:${result.lastID}`);
+    return getQuery(db, "SELECT * FROM books WHERE id = ?", result.lastID);
   })
   .then((result) => {
     console.log("Selected data:", result);

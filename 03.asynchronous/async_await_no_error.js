@@ -18,13 +18,10 @@ result = await runQuery(
 );
 console.log("Created books table.");
 
-let lastID;
-
 result = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
   "桃太郎",
 ]);
-lastID = result.lastID;
-console.log(`Inserted data id:${lastID}`);
+console.log(`Inserted data id:${result.lastID}`);
 
 const row = await getQuery(db, "SELECT * FROM books WHERE id = ?", [
   result.lastID,
