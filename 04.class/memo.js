@@ -7,39 +7,28 @@ export class Memo {
     this.content
   }
   async input() {
-    try {
-      await this.db.create();
-      await this.db.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
-        this.title,
-        this.content,
-      ]);
-      this.db.close();
-    } catch {
-      await this.db.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
-        this.title,
-        this.content,
-      ]);
-      this.db.close();
-    }
+    await this.db.create();
+    this.db.saveMemo(this.title, this.content)
+    this.db.close();
   }
   async listup() {
     await this.db.create();
-    const row = await this.db.getQuery("SELECT title FROM memo");
+    const row = this.db.getListupMemo()
     return row;
   }
   async searchRead() {
     await this.db.create();
-    const row = await this.db.getQuery("SELECT title,content FROM memo");
+    const row = this.db.getReadMemo()
     return row;
   }
   async searchDelete() {
     await this.db.create();
-    const row = await this.db.getQuery("SELECT title,id FROM memo");
+    const row = this.db.getDeleteMemo()
     return row;
   }
   async delete(answer) {
     await this.db.create();
-    await this.db.runQuery("DELETE FROM memo WHERE id == (?)", [answer]);
+    this.db.deleteMemo(answer)
   }
 }
 
