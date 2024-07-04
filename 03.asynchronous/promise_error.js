@@ -23,9 +23,7 @@ openDatabase()
     return runQuery(db, "INSERT INTO books (title) VALUES (?)");
   })
   .then((result) => {
-    if (result.err === undefined) {
       console.log(`Inserted data id:${result.lastID}`);
-    }
     return result;
   })
   .catch((err) => {
