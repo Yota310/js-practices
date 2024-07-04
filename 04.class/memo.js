@@ -3,19 +3,21 @@ import DB from "./db.js";
 export class Memo {
   constructor() {
     this.db = new DB();
+    this.title
+    this.content
   }
-  async input(title, content) {
+  async input() {
     try {
       await this.db.create();
       await this.db.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
-        title,
-        content,
+        this.title,
+        this.content,
       ]);
       this.db.close();
     } catch {
       await this.db.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
-        title,
-        content,
+        this.title,
+        this.content,
       ]);
       this.db.close();
     }

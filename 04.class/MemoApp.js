@@ -81,9 +81,9 @@ class MemoApp {
 
   async createMemo(memo) {
     let userInput = await this.receiveUserInput();
-    const title = userInput[0];
-    const content = userInput.slice(0).join("\n");
-    memo.input(title, content);
+    memo.title = userInput[0];
+    memo.content = userInput.slice(0).join("\n");
+    memo.input(memo.title, memo.content);
   }
 }
 
