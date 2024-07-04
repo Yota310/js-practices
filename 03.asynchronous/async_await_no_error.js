@@ -7,12 +7,12 @@ import {
 
 console.log("エラーなし");
 let db;
-let response;
+let result;
 
 db = await openDatabase();
 console.log("Connected to the in-memory SQLite database.");
 
-response = await runQuery(
+result = await runQuery(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 );
@@ -20,14 +20,14 @@ console.log("Created books table.");
 
 let lastID;
 
-response = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
+result = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
   "桃太郎",
 ]);
-lastID = response.lastID;
+lastID = result.lastID;
 console.log(`Inserted data id:${lastID}`);
 
 const row = await getQuery(db, "SELECT * FROM books WHERE id = ?", [
-  response.lastID,
+  result.lastID,
 ]);
 console.log("Selected data:", row);
 
