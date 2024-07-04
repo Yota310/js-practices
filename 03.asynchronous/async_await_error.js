@@ -6,13 +6,13 @@ import {
 } from "./promise_function.js";
 
 console.log("エラーあり");
-let db;
-let result;
 
-db = await openDatabase();
+
+
+const db = await openDatabase();
 console.log("Connected to the in-memory SQLite database.");
 
-result = await runQuery(
+let result = await runQuery(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 );

@@ -6,19 +6,17 @@ import {
 } from "./promise_function.js";
 
 console.log("エラーなし");
-let db;
-let result;
 
-db = await openDatabase();
+const db = await openDatabase();
 console.log("Connected to the in-memory SQLite database.");
 
-result = await runQuery(
+await runQuery(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 );
 console.log("Created books table.");
 
-result = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
+const result = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
   "桃太郎",
 ]);
 console.log(`Inserted data id:${result.lastID}`);
