@@ -43,26 +43,35 @@ class Db {
       console.error(`Error closeing database: ${err.message}`);
     }
   }
-  async saveMemo(title, content){
-    await this.db.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
+  async saveMemo(title, content) {
+    await this.create();
+    await this.runQuery(`INSERT INTO memo (title, content) VALUES (?,?)`, [
       title,
       content,
     ]);
+    this.close();
   }
-  async getListupMemo(){
+  async getListupMemo() {
+    await this.create();
     const row = await this.getQuery("SELECT title FROM memo");
-    return row
+    this.close();
+    return row;
   }
-  async getReadMemo(){
+  async getReadMemo() {
+    await this.create();
     const row = await this.getQuery("SELECT title,content FROM memo");
-    return row
+    this.close();
+    return row;
   }
-  async getDeleteMemo(){
+  async getDeleteMemo() {
+    await this.create();
     const row = await this.getQuery("SELECT title,id FROM memo");
-    return row
+    return row;
   }
-  async deleteMemo(answer){
+  async deleteMemo(answer) {
+    await this.create();
     await this.runQuery("DELETE FROM memo WHERE id == (?)", [answer]);
+    this.close();
   }
 }
 
