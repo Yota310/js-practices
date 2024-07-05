@@ -1,28 +1,26 @@
-import MemoDB from "./memoDb.js";
 
 export class Memo {
   constructor() {
-    this.db = new MemoDB();
     this.title;
     this.content;
   }
-  async save() {
-    this.db.saveMemo(this.title, this.content);
+  async save(db) {
+    db.saveMemo(this.title, this.content);
   }
-  async listup() {
-    const row = this.db.getListupMemo();
+  static async listup(db) {
+    const row = db.getListupMemo();
     return row;
   }
-  async searchRead() {
-    const row = this.db.getReadMemo();
+  static async searchRead(db) {
+    const row = db.getReadMemo();
     return row;
   }
-  async searchDelete() {
-    const row = this.db.getDeleteMemo();
+  static async searchDelete(db) {
+    const row = db.getDeleteMemo();
     return row;
   }
-  async delete(answer) {
-    this.db.deleteMemo(answer);
+  static async delete(answer,db) {
+    db.deleteMemo(answer);
   }
 }
 

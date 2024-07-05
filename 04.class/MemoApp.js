@@ -2,10 +2,15 @@
 import minimist from "minimist";
 import readline from "readline";
 import Memo from "./memo.js";
+import MemoDb from "./memoDb.js";
 import enquirer from "enquirer";
 const { Select } = enquirer;
 
 class MemoApp {
+  constructor(){
+    this.db = new MemoDb();
+  }
+  
   async receiveUserInput() {
     var inputLines = [];
     return new Promise((resolve) => {
@@ -21,7 +26,6 @@ class MemoApp {
       });
     });
   }
-
   async inputOption() {
     const argv = minimist(process.argv.slice(2));
     const memo = new Memo();
@@ -29,11 +33,11 @@ class MemoApp {
       this.createMemo(memo);
     } else {
       if (argv.l) {
-        const row = await memo.listup();
+        const row = await Memo.listup(this.db);
         row.forEach((element) => console.log(element.title));
       }
       if (argv.r) {
-        const row = await memo.searchRead();
+        const row = await Memo.searchRead(this.db);
         const choices = row.map((memo) => ({
           name: memo.title,
           value: memo.content,
@@ -55,7 +59,7 @@ class MemoApp {
         }
       }
       if (argv.d) {
-        const row = await memo.searchDelete();
+        const row = await Memo.searchDelete(this.db);
         const choices = row.map((memo) => ({
           name: memo.title,
           value: memo.id,
@@ -71,25 +75,24 @@ class MemoApp {
 
         const answer = await prompt.run();
         try {
-          memo.delete(answer);
+          Memo.delete(answer,this.db);
         } catch (err) {
           console.error(`Error delete memo: ${err.message}`);
         }
       }
     }
   }
-
   async createMemo(memo) {
     let userInput = await this.receiveUserInput();
     memo.title = userInput[0];
     memo.content = userInput.slice(0).join("\n");
-    memo.save();
+    memo.save(this.db);
   }
 }
 
 async function main() {
-  const memo = new MemoApp();
-  memo.inputOption();
+  const memoApp = new MemoApp();
+  memoApp.inputOption();
 }
 
 main();
