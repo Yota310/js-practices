@@ -1,8 +1,8 @@
-import DB from "./db.js";
+import MemoDB from "./memoDb.js";
 
 export class Memo {
   constructor() {
-    this.db = new DB();
+    this.db = new MemoDB();
     this.title;
     this.content;
   }
