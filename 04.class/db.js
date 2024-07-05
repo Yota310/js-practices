@@ -4,7 +4,7 @@ class Db {
   constructor() {
     this.db = new sqlite3.Database("./memo.db");
   }
-  
+
   runQuery(query, params = []) {
     return new Promise((resolve, reject) => {
       this.db.run(query, params, function (err) {
@@ -34,7 +34,6 @@ class Db {
       console.error(`Error closeing database: ${err.message}`);
     }
   }
-  
 }
 
 export default Db;

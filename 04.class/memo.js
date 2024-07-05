@@ -1,4 +1,3 @@
-
 export class Memo {
   constructor() {
     this.title;
@@ -19,7 +18,7 @@ export class Memo {
     const row = db.getDeleteMemo();
     return row;
   }
-  static async delete(answer,db) {
+  static async delete(answer, db) {
     db.deleteMemo(answer);
   }
 }

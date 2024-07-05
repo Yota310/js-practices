@@ -7,10 +7,10 @@ import enquirer from "enquirer";
 const { Select } = enquirer;
 
 class MemoApp {
-  constructor(){
+  constructor() {
     this.db = new MemoDb();
   }
-  
+
   async receiveUserInput() {
     var inputLines = [];
     return new Promise((resolve) => {
@@ -75,7 +75,7 @@ class MemoApp {
 
         const answer = await prompt.run();
         try {
-          Memo.delete(answer,this.db);
+          Memo.delete(answer, this.db);
         } catch (err) {
           console.error(`Error delete memo: ${err.message}`);
         }

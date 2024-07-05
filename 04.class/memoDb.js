@@ -1,8 +1,8 @@
-import Db from "./db.js"
+import Db from "./db.js";
 
 class MemoDb {
   constructor() {
-    this.db = new Db;
+    this.db = new Db();
   }
   async create() {
     await this.db.runQuery(
