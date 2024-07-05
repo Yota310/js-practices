@@ -83,7 +83,7 @@ class MemoApp {
     let userInput = await this.receiveUserInput();
     memo.title = userInput[0];
     memo.content = userInput.slice(0).join("\n");
-    memo.input(memo.title, memo.content);
+    memo.save();
   }
 }
 

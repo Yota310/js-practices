@@ -6,7 +6,7 @@ export class Memo {
     this.title;
     this.content;
   }
-  async input() {
+  async save() {
     this.db.saveMemo(this.title, this.content);
   }
   async listup() {
